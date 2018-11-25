@@ -4,7 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
@@ -19,7 +27,7 @@ public class Order {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_customer", nullable = false)
+    @JoinColumn(name = "id_customer")
     private Customer customer;
 
     @Column(name = "status")
@@ -27,4 +35,14 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<Basket> baskets;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer.getId() +
+                ", status='" + status + '\'' +
+                ", baskets size=" + baskets.size() +
+                '}';
+    }
 }
